@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Web App</title>
+   
+    <!-- font icons -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/themify-icons/css/themify-icons.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/animate/animate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/boxicons.min.css') }}">
+
+    <!-- Bootstrap  main styles -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/foodhut.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+    
+    <!-- Navbar -->
+    <nav class="custom-navbar navbar navbar-expand-lg navbar-dark fixed-top" data-spy="affix" data-offset-top="10" style="padding: 8px;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#usuario">Validar Usuario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#seleccion">Selección</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#cable">Catálogo</a>
+                </li>
+            </ul>
+            <a class="navbar-brand m-auto" href="#">
+                <img src="{{ url_for('static', filename='assets/imgs/ieb/logo_ieb.png') }}" class="brand-img" alt="">
+                <span class="brand-txt">ieb</span>
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="https://www.ieb.co/energia/" target="_blank" class="btn btn-danger ml-xl-4" style="margin-right: 30px;">Pagina Oficial</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- header -->
+    <header id="home" class="header">
+        <div class="overlay text-white text-center">
+            <h1 class="display-2 font-weight-bold my-3">Energía Vital</h1>
+            <h2 class="display-4 mb-5">Conexión Total</h2>
+            <!-- <a class="btn btn-lg btn-primary" href="#gallary">View Our gallary</a> -->
+        </div>
+    </header>
+
+        <div class="text-center bg-dark text-light has-height-md middle-items wow fadeIn" id="seleccion">
+            <h2 class="section-title" style="margin: 30px; margin-top: 50px;">Usuarios ieb:</h2>
+            <div class="row" style="margin-bottom: 30px;">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="card-dark m-10">
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th><h4 class="text-danger">#</h4></th>
+                                    <th><h4 class="text-danger">Usuario</h4></th>
+                                    <th><h4 class="text-danger">Nombre</h4></th>
+                                    <th><h4 class="text-danger">Correo</h4></th>
+                                    <th><h4 class="text-danger">Estado</h4></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for registro in registros_usuarios %}
+                                <tr>
+                                    <th>{{ registro["id"] }}</th>
+                                    <td>{{ registro["usuario1"] }}</td>
+                                    <td>{{ registro["nombre"] }}</td>
+                                    <td>{{ registro["correo"] }}</td>
+                                    <td>{{ registro["estado"] }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+
+        <!--FORMULARIO PARA LA ELECCION DE LOS CABLES-->
+        <div class="bg-dark text-light has-height-md middle-items wow fadeIn">
+            <h1 class="text-center" style="margin: 30px; font-size: 50px;">Selección de cables:</h1>
+            <div class="row" style="padding: 50px;">
+                <div class="col-md-7">
+                    <div class="card-dark">
+                        <div class="card-body" style="padding-left: 100px; padding-right: 100px;">
+                            <form action="/webapp_seleccion" method="post">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Nombre selección" name="nombre_seleccion">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-3">
+                                            <input type="number" class="form-control" placeholder="Corriente" name="corriente">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-3">
+                                            <input type="number" class="form-control" placeholder="Tensión" name="tension">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Instalación" name="instalacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-3">
+                                            <select class="form-select" name="material">
+                                                <option selected>Material</option>
+                                                <option value="Cobre">Cobre</option>
+                                                <option value="Aluminio">Aluminio</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group mb-3">
+                                            <select class="form-select" name="nombre_proyecto">
+                                                <option selected>Nombre Proyecto</option>
+                                                {% for rp in registros_proyectos %}
+                                                    <option value="{{ rp['nombreProyecto'] }}">{{ rp["nombreProyecto"] }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <center>
+                                    <button type="submit" class="btn btn-danger">Correr Selección</button>
+                                </center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <!--INICIO DEL CARRUSEL DE IMAGENES DECORATIVO-->
+                    <div id="carouselExample" class="carousel slide">
+                        <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ url_for('static', filename='assets/imgs/ieb/imagen_seccion2.jpg') }}" class="d-block w-100" width="450px" height="450px">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='assets/imgs/ieb/imagen_seccion3.jpg') }}" class="d-block w-100" width="450px" height="450px">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='assets/imgs/ieb/imagen_seccion4.png') }}" class="d-block w-100" width="450px" height="450px">
+                        </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>                  
+                </div>
+            </div>
+        </div>
+
+        <!--INICIO DEL CATALOGO-->
+        <div class="bg-dark text-light has-height-md middle-items wow fadeIn">
+            <div class="row" style="margin-bottom: 50px;">
+                <div class="col-md-10">
+                    <h1 style="margin: 30px; font-size: 50px;">Busca en catálogo de cables:</h1>
+                    <div class="row">
+                        <div class="col-md-10">
+                            {% if (ampacidad != 0.0) and (ampacidad == 1.26) %}
+                            <p style="margin-left: 30px;">La Ampacidad qur tienes es de: 
+                                <span class="text-danger">1.26</span> 
+                                ya que la corriente ingresada es menor que 
+                                <span class="text-danger">40</span>.
+                            </p>
+                            {% elif (ampacidad != 0.0) and (ampacidad == 2.5) %}
+                            <p style="margin-left: 30px;">La Ampacidad qur tienes es de: 
+                                <span class="text-danger">2.5</span> 
+                                ya que la corriente ingresada es mayor o igual que 
+                                <span class="text-danger">40</span>.
+                            </p>
+                            {% else %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="card-dark m-10">
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th><h4 class="text-danger">Ampacidad</h4></th>
+                                    <th><h4 class="text-danger">Material</h4></th>
+                                    <th><h4 class="text-danger">Tensión Corregida</h4></th>
+                                    <th><h4 class="text-danger">Diámetro Corregido</h4></th>
+                                    <th><h4 class="text-danger">Código</h4></th>
+                                    <th><h4 class="text-danger">Corriente Corregida</h4></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for rc in registros_catalogo %}
+                                <tr>
+                                    <th class="text-light">{{ rc["ampacidad"] }}</th>
+                                    <td class="text-light">{{ rc["material"] }}</td>
+                                    <td class="text-light">{{ rc["tension"] }}</td>
+                                    <td class="text-light">{{ rc["diametroCable"] }}</td>
+                                    <td class="text-light">{{ rc["codigoCable"] }}</td>
+                                    <td class="text-light">{{ rc["corriente"] }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-danger">Cable escogido</h1>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h2>Nombre de la selecion: <span>{{ seleccion[1]["nombre_seleccion"] }}</span></h2>
+                            <h4>corriente: <span> {{ seleccion[1]["corriente"] }} </span></h4>
+                            <h4>tensión: <span> {{ seleccion[1]["tension"] }} </span></h4>
+                            <h4>ampacidad: <span>{{ seleccion_catalogo[1]["ampacidad"] }}</span></h4>
+                            <h4>corriente corregida: <span>{{ seleccion_catalogo[1]["corriente"] }}</span></h4>
+                            <h4>usuario: <span>{{ registros_usuarios[1]["usuario1"] }}</span></h4>
+                            <h4>nombre proyecto: <span> {{ seleccion[1]["nombre_proyecto"] }} </span></h4>
+                            <h4>fecha de insercion: <span> {{ seleccion[1]["fecha_insercion"] }} </span></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    <!--INICIO DEL FOOTER-->
+    <footer class="bg-dark py-4">
+        <div class="container" style="margin-top: 200px;">
+          <div class="row">
+            <div class="col-md-6 text-light">
+              <h4>Contáctame</h4>
+              <p>Si deseas ponerte en contacto conmigo para colaboraciones o proyectos, no dudes en escribirme. Estoy siempre abierto a nuevas oportunidades.</p>
+              <ul class="list-unstyled">
+                <li><i class="fas fa-envelope"></i>andresjuangutierrezcastro0704@gmail.com</li>
+                <li><i class="fas fa-phone"></i> (+57) 305 245 82 56</li>
+                <li><i class="fas fa-map-marker-alt"></i> Medellín, Colombia</li>
+              </ul>
+            </div>
+            <div class="col-md-6 text-light">
+              <h4>Mira mis poryectos</h4>
+              <ul class="list-unstyled">
+                <li><a href="https://github.com/Andres-Juan-Gutierrez-Castro-73" target="_blank"><i class="fab fa-facebook fa-lg"></i>Github</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+      
+
+	<!-- core  -->
+    <script src="{{ url_for('static', filename='assets/vendors/jquery/jquery-3.4.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>
+
+    <!-- bootstrap affix -->
+    <script src="{{ url_for('static', filename='assets/vendors/bootstrap/bootstrap.affix.js') }}"></script>
+
+    <!-- wow.js -->
+    <script src="{{ url_for('static', filename='assets/vendors/wow/wow.js') }}"></script>
+        
+    <!--  js -->
+    <script src="{{ url_for('static', filename='assets/js/foodhut.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
